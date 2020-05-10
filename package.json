@@ -1,0 +1,26 @@
+{
+  "name": "timetable_backend",
+  "version": "1.0.0",
+  "description": "Nodejs Backend for Timetable Web-App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rgautham3110/timetable_backend.git"
+  },
+  "author": "Gautham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rgautham3110/timetable_backend/issues"
+  },
+  "homepage": "https://github.com/rgautham3110/timetable_backend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
