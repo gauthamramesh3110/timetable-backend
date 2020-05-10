@@ -10,36 +10,42 @@ const User = require('../models/user_model')
 router = express.Router();
 router.post('/signup', (req, res)=>{
     User.findOne({username: req.body.username}, (err, doc)=>{
-        if(err){
-            bcrypt.hash(req.body.password, 10, (err, hash)=>{
-                if (!err){
-                    const user = new User({
-                        username: req.body.username,
-                        password: hash
-                    });
-                    user.save().then(result=>{
-                        res.status(201).json({
-                            msg: "User Created",
-                            user: {
-                                id: result._id,
-                                username: result.username,
-                            }
+        if(!err){
+            if(doc==null){
+                bcrypt.hash(req.body.password, 10, (err, hash)=>{
+                    if (!err){
+                        const user = new User({
+                            username: req.body.username,
+                            password: hash
+                        });
+                        user.save().then(result=>{
+                            res.status(201).json({
+                                msg: "User Created",
+                                user: {
+                                    id: result._id,
+                                    username: result.username,
+                                }
+                            })
+                        }).catch(error=>{
+                            console.log(error)
+                            res.status(500).json({
+                                msg: "Internal Server Error. Unable to save user to database."
+                            })
                         })
-                    }).catch(error=>{
-                        console.log(error)
+                    }else{
                         res.status(500).json({
-                            msg: "Internal Server Error. Unable to save user to database."
-                        })
-                    })
-                }else{
-                    res.status(500).json({
-                        msg: "Internal Server Error. Unable to generate hash."
-                    });
-                }
-            })
+                            msg: "Internal Server Error. Unable to generate hash."
+                        });
+                    }
+                })
+            }else{
+                res.status(400).json({
+                    msg: "Username already taken. Try another one.",
+                })
+            }
         }else{
-            res.status(400).json({
-                msg: "Username already taken. Try another one."
+            res.status(500).json({
+                msg: "Internal Server Error.",
             })
         }
     })
@@ -57,9 +63,10 @@ router.get('/login', (req, res)=>{
                 if (result){
                     jwt.sign(
                         {
+                            id: doc._id,
                             username: doc.username,
                         },
-                        'hello',
+                        process.env.JWT_PRIVATE_KEY,
                         (err, token)=>{
                             if(!err){
                                 res.status(200).json({

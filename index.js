@@ -15,6 +15,7 @@ mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}).then(re
 const app = express()
 app.use(express.json())
 app.use('/user', require('./routes/login'))
+app.use('/tasks', require('./routes/tasks'))
 
 //Listen in a port
 PORT = process.env.PORT || 5000;
