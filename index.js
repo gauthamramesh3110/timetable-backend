@@ -17,6 +17,12 @@ app.use(express.json())
 app.use('/user', require('./routes/login'))
 app.use('/tasks', require('./routes/tasks'))
 
+app.get('/', (req, res)=>{
+    res.status(200).json({
+        msg: 'Timetable API'
+    })
+})
+
 //Listen in a port
 PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{
