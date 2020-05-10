@@ -4,7 +4,8 @@
   "description": "Nodejs Backend for Timetable Web-App",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index",
+    "run": "node index"
   },
   "repository": {
     "type": "git",
@@ -17,8 +18,12 @@
   },
   "homepage": "https://github.com/rgautham3110/timetable_backend#readme",
   "dependencies": {
+    "bcrypt": "^4.0.1",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.13"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
