@@ -43,9 +43,21 @@ router.post('/', checkAuth, (req, res)=>{
 router.delete('/', checkAuth, (req, res)=>{
     Task.findByIdAndDelete(req.body.id, (error, result)=>{
         if(!error){
-            res.status(200).json({
-                msg: "Deleted task",
-                result
+            userid = req.userData.id
+            Task.find({
+                userid
+            },
+            (err, docs)=>{
+                if(!err){
+                    res.status(200).json({
+                        msg: "Deletion Successful. Retrieval of tasks successful.",
+                        tasks: docs
+                    })
+                }else{
+                    res.status(500).json({
+                        msg: "Deletion Successful. Not able to retrieve tasks"
+                    })
+                }
             })
         }else{
             res.status(500).json({
