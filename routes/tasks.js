@@ -40,4 +40,19 @@ router.post('/', checkAuth, (req, res)=>{
     })
 })
 
+router.delete('/', checkAuth, (req, res)=>{
+    Task.findByIdAndDelete(req.body.id, (error, result)=>{
+        if(!error){
+            res.status(200).json({
+                msg: "Deleted task",
+                result
+            })
+        }else{
+            res.status(500).json({
+                msg: "Internal Server Error. Unable to delete task."
+            })
+        }
+    })
+})
+
 module.exports = router
