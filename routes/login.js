@@ -51,7 +51,7 @@ router.post('/signup', (req, res)=>{
     })
 })
 
-router.get('/login', (req, res)=>{
+router.post('/login', (req, res)=>{
     User.findOne({username: req.body.username}, (err, doc)=>{
         if(err){
             res.status(400).json({
